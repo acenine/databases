@@ -12,31 +12,37 @@ var statusCode = 200;
 module.exports = {
   messages: {
     get: function (req, res) {
-      statusCode = statusCode || 200;
-      res.writeHead(statusCode, headers);
-      res.end(models.messages.get(JSON.stringify));
       // req.query = //{order: -createdAt}
-      // models.messages.get(console.log);
+      models.messages.get(function(error, results, fields) {
+        res.json(results);
+      });
     }, // a function which handles a get request for all messages
     post: function (req, res) {
-
-      var data = req.json;
-      var values = [];
-      for (key in data) {
-        values.push(data[key]);
-      }
-      values = '(' + values.join(',') + ')';
-      models.messages.post(values);
+      models.messages.post(([req.json.body, req.json.userID, req.json.roomname]), function(error, results, fields) {
+        res.json(results);
+      });
+    
+      // var data = req.json;
+      // var values = [];
+      // for (key in data) {
+      //   values.push(data[key]);
+      // }
+      // values = '(' + values.join(',') + ')';
+      // models.messages.post(values);
     } // a function which handles posting a message to the database
   },
 
   users: {
     // Ditto as above
     get: function (req, res) {
-      models.users.get();
+      models.users.get(function(error, results, fields) {
+        res.json(results);
+      });
     },
     post: function (req, res) {
-      models.users.post(req.json.username);
+      models.users.post(req.json.username, function(error, results, fields) {
+        res.json(results);
+      });
     }
   }
 };
