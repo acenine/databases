@@ -24,7 +24,7 @@ CREATE TABLE messages (
   messageID INT NOT NULL,
   body TEXT NOT NULL,
   userID INT NOT NULL,
-  -- roomID INT NOT NULL,
+  roomname TEXT NOT NULL,
   PRIMARY KEY (messageID),
   FOREIGN KEY (userID) REFERENCES users (userID)
   -- FOREIGN KEY (roomID) REFERENCES rooms (roomID)

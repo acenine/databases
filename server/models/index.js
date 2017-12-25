@@ -21,8 +21,8 @@ module.exports = {
         callback(results);
       })
     },
-    post: function (values) {
-      db.query('INSERT INTO users VALUES ?', values, function() {});
+    post: function (value, callback) {
+      db.query('INSERT INTO users (name) VALUES ?', value, function() {});
     }
   }
 };
