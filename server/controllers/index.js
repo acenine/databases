@@ -1,25 +1,25 @@
 var models = require('../models');
 
-var headers = {
-  'access-control-allow-origin': '*',
-  'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'access-control-allow-headers': 'content-type, accept',
-  'access-control-max-age': 10, // Seconds.
-  'Content-Type': 'application/json'
-};
+// var headers = {
+//   'access-control-allow-origin': '*',
+//   'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+//   'access-control-allow-headers': 'content-type, accept',
+//   'access-control-max-age': 10, // Seconds.
+//   'Content-Type': 'application/json'
+// };
 
-var statusCode = 200;
+// var statusCode = 200;
 module.exports = {
   messages: {
     get: function (req, res) {
       // req.query = //{order: -createdAt}
       models.messages.get(function(error, results, fields) {
-        res.json(results);
+        res.json({results: results});
       });
     }, // a function which handles a get request for all messages
     post: function (req, res) {
       models.messages.post(([req.json.body, req.json.userID, req.json.roomname]), function(error, results, fields) {
-        res.json(results);
+        res.json({results: results});
       });
     
       // var data = req.json;
@@ -40,6 +40,7 @@ module.exports = {
       });
     },
     post: function (req, res) {
+      console.log(req);
       models.users.post(req.json.username, function(error, results, fields) {
         res.json(results);
       });

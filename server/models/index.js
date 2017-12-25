@@ -4,9 +4,8 @@ module.exports = {
   messages: {
     get: function (callback) {
       db.query('SELECT messages.messageID, messages.body, messages.roomname, users.username FROM messages, users WHERE users.userID = messages.userID', function(error, results, fields) {
-        // messagesID, body, userID, roomname
+        //messagesID, body, userID, roomname
         // if (error) throw error;
-        console.log(results);
         callback(results);
       })
     }, // a function which produces all the messages

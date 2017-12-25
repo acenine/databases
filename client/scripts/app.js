@@ -67,6 +67,7 @@ var app = {
       data: 'order=-createdAt',
       contentType: 'application/json',
       success: function(data) {
+        console.log('Fetched!');
         // Don't bother if we have nothing to work with
         if (!data.results || !data.results.length) { return; }
 
