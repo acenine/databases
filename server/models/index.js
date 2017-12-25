@@ -9,8 +9,9 @@ module.exports = {
         callback(results);
       })
     }, // a function which produces all the messages
-    post: function (values) {
-      db.query('INSERT INTO messages.text, message.userID, messages.roomname VALUES (?, (SELECT users.userID FROM users WHERE users.username = ?), ?)', values, function(error, results, fields) {
+    post: function (values, callback) {
+      
+      db.query('INSERT INTO messages (text, userID, roomname) VALUES (?, (SELECT userID FROM users WHERE username = ?), ?)', values, function(error, results, fields) {
         //body, username, roomname
         // if (error) throw error;
         callback(results);

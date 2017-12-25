@@ -14,15 +14,22 @@ module.exports = {
     get: function (req, res) {
       // req.query = //{order: -createdAt}
       models.messages.get(function(results) {
-        console.log(results);
         res.json({results: results});
       });
     }, // a function which handles a get request for all messages
     post: function (req, res) {
-      models.messages.post(([req.json.body, req.json.userID, req.json.roomname]), function(error, results, fields) {
-        res.json(results);
+      // var body = "";
+      // req.on('data', function (chunk) {
+      //   body += chunk;
+      // });
+      // console.log((body));
+      // models.messages.post(([req.body.text, req.body.username, req.body.roomname]), function(error, results, fields) {
+      //   res.json(results);
+      // });
+      // models.users.post('cleo')//post user
+      models.messages.post(['sup', 'cleo', 'pit of misery'], function(error, results, fields) {
+        res.json({results:results});
       });
-    
       // var data = req.json;
       // var values = [];
       // for (key in data) {
@@ -37,11 +44,11 @@ module.exports = {
     // Ditto as above
     get: function (req, res) {
       models.users.get(function(error, results, fields) {
-        res.json(results);
+        res.json({results: results});
       });
     },
     post: function (req, res) {
-      models.users.post(req.json.username, function(error, results, fields) {
+      models.users.post('jody', function(error, results, fields) {
         res.json(results);
       });
     }

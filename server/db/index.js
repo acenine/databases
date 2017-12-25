@@ -19,7 +19,6 @@ connection.connect();
 
 //   console.log('Fields --> : ', fields[0]);
 // });
-
 module.exports = connection;
 // module.exports = {
 //   getFromDB: function(tablename, callback) {
