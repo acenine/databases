@@ -1,22 +1,28 @@
 var db = require('../db');
-db.getFromDB('messages', console.log);
+
 module.exports = {
   messages: {
     get: function (callback) {
-      db.getFromDB('messages', callback);
+      db.query('SELECT * FROM messages', function(error, results, fields) {
+        if (error) throw error;
+        callback(results);
+      })
     }, // a function which produces all the messages
-    post: function (values, callback) {
-      db.postToDB('messages', values, callback);
-    } // a function which can be used to insert a message into the database
+    post: function (values) {
+      db.query('INSERT INTO messages VALUES ?', values, function() {});
+      } // a function which can be used to insert a message into the database
   },
 
   users: {
     // Ditto as above.
     get: function (callback) {
-      db.getFromDB('users', callback);
+      db.query('SELECT * FROM users', function(error, results, fields) {
+        if (error) throw error;
+        callback(results);
+      })
     },
-    post: function (values, callback) {
-      db.postToDB('users', values, callback);
+    post: function (values) {
+      db.query('INSERT INTO users VALUES ?', values, function() {});
     }
   }
 };
