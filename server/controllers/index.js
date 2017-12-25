@@ -13,13 +13,14 @@ module.exports = {
   messages: {
     get: function (req, res) {
       // req.query = //{order: -createdAt}
-      models.messages.get(function(error, results, fields) {
+      models.messages.get(function(results) {
+        console.log(results);
         res.json({results: results});
       });
     }, // a function which handles a get request for all messages
     post: function (req, res) {
       models.messages.post(([req.json.body, req.json.userID, req.json.roomname]), function(error, results, fields) {
-        res.json({results: results});
+        res.json(results);
       });
     
       // var data = req.json;
@@ -40,7 +41,6 @@ module.exports = {
       });
     },
     post: function (req, res) {
-      console.log(req);
       models.users.post(req.json.username, function(error, results, fields) {
         res.json(results);
       });

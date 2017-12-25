@@ -25,7 +25,7 @@ CREATE TABLE users (
 -- );
 CREATE TABLE messages (
   messageID INT NOT NULL AUTO_INCREMENT,
-  body TEXT NOT NULL,
+  text TEXT NOT NULL,
   userID INT NOT NULL,
   roomname varchar(20) NOT NULL,
   PRIMARY KEY (messageID),
@@ -37,7 +37,7 @@ CREATE TABLE messages (
 /* -- add user to table --*/
 insert into users (username) values ('cleo');
 /* -- add message from user to table --*/
-insert into messages (body, roomname, userID) values ('yo', 'pit of misery', (select userID from users where users.username = 'cleo'));
+insert into messages (text, roomname, userID) values ('yo', 'pit of misery', (select userID from users where users.username = 'cleo'));
 
 /*  Execute this file from the command line by typing:
  *    mysql -u root < server/schema.sql
