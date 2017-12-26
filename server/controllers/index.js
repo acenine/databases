@@ -32,26 +32,13 @@ module.exports = {
         console.log(message);
         var values = [message.text, message.username, message.roomname];
 
-        models.users.post(values[1], function(error, results, fields) {
-          res.json({results:results});
-        });
-        models.messages.post(values, function(error, results, fields) {
-          res.json({results:results});
+
+        models.users.post(message.username, function(error, results, fields) {
+          models.messages.post(values, function(error, results, fields) {
+            res.json({results:results});
+          });
         });
       });
-  
-      // models.messages.post(([req.body.text, req.body.username, req.body.roomname]), function(error, results, fields) {
-      //   res.json(results);
-      // });
-      // models.users.post('cleo')//post user
-      
-      // var data = req.json;
-      // var values = [];
-      // for (key in data) {
-      //   values.push(data[key]);
-      // }
-      // values = '(' + values.join(',') + ')';
-      // models.messages.post(values);
     } // a function which handles posting a message to the database
   },
 

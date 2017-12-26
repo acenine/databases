@@ -28,7 +28,19 @@ module.exports = {
       })
     },
     post: function (value, callback) {
-      db.query('INSERT INTO users (username) VALUES ?', value, function() {});
+      db.query('SELECT * FROM users WHERE username=?', value, function(error, results, fields) {
+        // if (error) throw error;
+
+        if (results.length) {
+          callback(results);
+        }
+        else {
+          db.query('INSERT INTO users (username) VALUES (?)', value, function(error, results, fields) {
+            if (error) throw error;
+            callback(results);
+          });
+        }
+      })
     }
   }
 };
