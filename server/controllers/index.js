@@ -18,18 +18,33 @@ module.exports = {
       });
     }, // a function which handles a get request for all messages
     post: function (req, res) {
-      // var body = "";
-      // req.on('data', function (chunk) {
-      //   body += chunk;
-      // });
-      // console.log((body));
+      var body = []; 
+      req.on('data', function(data) {
+        body.push(data);
+      });
+      req.on('end', function() {
+        // body = JSON.parse(JSON.stringify(body));
+        body = body.toString().split('&');
+        var message = {};
+        message.text = body[1].slice(5).split('+').join(' ');
+        message.username = body[0].slice(9).split('+').join(' ');
+        message.roomname = body[2].slice(9).split('+').join(' ');
+        console.log(message);
+        var values = [message.text, message.username, message.roomname];
+
+        models.users.post(values[1], function(error, results, fields) {
+          res.json({results:results});
+        });
+        models.messages.post(values, function(error, results, fields) {
+          res.json({results:results});
+        });
+      });
+  
       // models.messages.post(([req.body.text, req.body.username, req.body.roomname]), function(error, results, fields) {
       //   res.json(results);
       // });
       // models.users.post('cleo')//post user
-      models.messages.post(['sup', 'cleo', 'pit of misery'], function(error, results, fields) {
-        res.json({results:results});
-      });
+      
       // var data = req.json;
       // var values = [];
       // for (key in data) {
@@ -48,8 +63,15 @@ module.exports = {
       });
     },
     post: function (req, res) {
-      models.users.post('jody', function(error, results, fields) {
-        res.json(results);
+      var body = []; 
+      req.on('data', function(data) {
+        body.push(data);
+      });
+      req.on('end', function() {
+        var values = body.toString();
+        models.users.post(values, function(error, results, fields) {
+          res.json({results:results});
+        });
       });
     }
   }
